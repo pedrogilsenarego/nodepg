@@ -1,10 +1,12 @@
+const { dbPassword } = require("../../config");
+
 const Pool = require("pg").Pool;
 
 const pool = new Pool({
   user: "postgres",
   host: "localhost",
   database: "ritz",
-  password: process.env.DATABASE_PASSWORD,
+  password: dbPassword,
   port: 5432,
 });
 
