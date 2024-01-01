@@ -16,7 +16,22 @@ const getUserById = (req, res) => {
   });
 };
 
+const addUser = (req, res) => {
+  const { name, email, age, dob } = req.body;
+  pool.query(queries.checkEmailExists, [email], (error, results) => {
+    if (error) throw error;
+    if (results.rows.length) {
+      res.send("Email already used");
+    }
+    pool.query(queries.addUser, [name, email, age, dob], (error, results) => {
+      if (error) throw error;
+      res.status(201).send("User added successfully");
+    });
+  });
+};
+
 module.exports = {
   getUsers,
   getUserById,
+  addUser,
 };
